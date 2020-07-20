@@ -17,17 +17,18 @@ export const addItemToCart = (cartItems,cartItemToAdd) => {
 export const removeItemFromCart = (cartItems, cartItemToRemove)=>{
   const existingCartItem = cartItems.find(
       cartItem => cartItem.id === cartItemToRemove.id
+
   ) 
 
   if (existingCartItem === 1){
       return cartItems.filter(cartItem =>
-        cartItemToRemove.id)
+        cartItem.id !== cartItemToRemove.id);
   }
 
   return cartItems.map(
       cartItem =>
-      cartItem.id ===cartItemToRemove.id?
-      {...cartItem,quantity:cartItem.quantity - 1}
+    cartItem.id ===cartItemToRemove.id?
+      {...cartItem,quantity:(cartItem.quantity - 1)<0?0:cartItem.quantity - 1}
       : cartItem
   );
 };
